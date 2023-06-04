@@ -15,7 +15,6 @@ struct List {
 Node* CreateNode(int data)
 {
 	Node* p = new Node;
-	if (p == NULL) exit(1);
 	p->data = data;
 	p->next = NULL;
 	return p;
@@ -55,14 +54,10 @@ void addTail(List& l, Node* p)
 
 void printList(List& l)
 {
-	Node* p;
-	p = l.head;
-	while (p != NULL)
-	{
+	for (Node* p = l.head; p != NULL; p = p->next)
 		cout << p->data << " ";
-		p = p->next;
-	}
 }
+
 Node* Reverse(Node* p)
 {
 	Node* prev = NULL;
@@ -105,27 +100,29 @@ void ReverseKhoang(List& l, int h, int k)
 	}
 	else {
 		l.head = end;
-		start->next = e_next;
 	}
-
+	start->next = e_next;
 }
 
 int main()
 {
 	int n, x;
-	cin >> n;
+	
 	Node* p;
 	List l;
 	CreateList(l);
+
+	cin >> n;
 	
 	for (int i = 0; i < n; i++)
 	{
 		cin >> x;
-		p = CreateNode(x);
-		addTail(l,p);
+		
+		addTail(l, CreateNode(x));
 	}
 	int h, k;
 	cin >> h >> k;
+
 	ReverseKhoang(l, h, k);
 	printList(l);
 	return 0;
